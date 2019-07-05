@@ -15,7 +15,7 @@ export default function PostThumb(post){
         imgSrc = pickCorrectImage(data.preview.images);
     }
     const bUseTitleForSelftext = data.selftext === '';
-    const mainElement = imgSrc ? <img src={imgSrc} className="postThumb_mainElement" /> : <p className="postThumb_mainElement">{bUseTitleForSelftext ? data.title : data.selftext}</p>
+    const mainElement = imgSrc ? <img src={imgSrc} alt={data.title} className="postThumb_mainElement" /> : <p className="postThumb_mainElement">{bUseTitleForSelftext ? data.title : data.selftext}</p>
 
     console.log(data.title);
     return (

@@ -12,15 +12,16 @@ function App(){
   const initialSub = getUrlParameter('sub') || 'aww';
   const [selectedSub, setSub] = useState(initialSub);
 
-  const getSubPosts = () =>{
-    const URL = `http://localhost:5000/api/redditviewer/${selectedSub}`;
-    axios.get(URL).then(res =>res.data).then(data => {
-      console.log(data);
-      setPosts(data)
-    })
-  }
+  
 
   useEffect(() => {
+    const getSubPosts = () =>{
+      const URL = `http://localhost:5000/api/redditviewer/${selectedSub}`;
+      axios.get(URL).then(res =>res.data).then(data => {
+        console.log(data);
+        setPosts(data)
+      })
+    }
     getSubPosts();
   },[selectedSub])
 
@@ -38,7 +39,7 @@ function App(){
 }
 
 function getUrlParameter(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  name = name.replace(/[/, '\\[').replace(/[\]]/, '\\]');
   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
   var results = regex.exec(window.location.search);
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
