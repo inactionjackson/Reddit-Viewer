@@ -17,14 +17,14 @@ export default function PostThumb({ post, id, selectPost, screenHeight, screenWi
     const mainElement = imgSrc ? <img src={imgSrc} alt={data.title} /> : <div><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>;
 
     //TODO: fix styling for selftext when image not available - needs properly centered
-    const handleSelectPost = (e) => {
+    const handleSelectPost = () => {
         selectPost(id);
     }
 
 
     return (
         <div className={`postThumb ${bUseTitleForSelftext && !imgSrc ? "titleOnly" : ""}`}>
-            <div className={mainElementClassName} onClick={(e) => handleSelectPost(e)}>
+            <div className={mainElementClassName} onClick={() => handleSelectPost()}>
                 {mainElement}
             </div>
             <div className='postThumb_smallTitle'>

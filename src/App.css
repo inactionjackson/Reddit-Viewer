@@ -75,9 +75,6 @@ a{
   left:50%;
   top:50%;
   transform: translate(-50%, -50%);
-  background-color: gray;
-  padding:10px;
-  border: 1px solid black;
   z-index:100;
 }
 
@@ -86,12 +83,16 @@ a{
   height: 100%;
   width: 100%;
 }
-.postFull p{
+.postFull div{
   height: 100%;
   width: 100%;
   overflow:scroll;
   font-size: calc(16px + (32 - 16) * ((100vw - 300px) / (2048 - 300)));
-  
+  background-color:white;
+}
+.postFull div p{
+  padding:10px 3% 0 3%;
+  text-indent: 12pt;
 }
 .postFull_backing{
   position: fixed;
@@ -100,5 +101,5 @@ a{
   height: 100%;
   top:0px;
   left:0px;
-  background-color:rgba(34, 33, 33, 0.7);
+  background-color:rgba(34, 33, 33, 0.9);
 }
