@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import './App.css';
 import PostThumb from './components/PostThumb';
+import PostFull from './components/PostFull';
 import NavBar from './components/NavBar';
 
 
@@ -11,29 +13,29 @@ function App(){
   const [posts, setPosts] = useState([]);
   const initialSub = getUrlParameter('sub') || 'aww';
   const [selectedSub, setSub] = useState(initialSub);
-
+  const [selectedPost,setSelectedPost] = useState(null);
   
-
   useEffect(() => {
     const getSubPosts = () =>{
       const URL = `http://localhost:5000/api/redditviewer/${selectedSub}`;
       axios.get(URL).then(res =>res.data).then(data => {
-        console.log(data);
         setPosts(data)
       })
     }
     getSubPosts();
   },[selectedSub])
 
+  //TODO: make # of grid columns adjust with screen size
   return (
     <div className="app">
       <NavBar initialSub={selectedSub} setSub={setSub} />
       <div className="postsHolder">
-        {posts.count > 0 ? '' : <p>Loading r/{selectedSub}</p>}
+        
         {posts.map((post, index) =>(
-          <PostThumb post={post} key={index} />
+          <PostThumb key={index} post={post} id={index} selectPost={setSelectedPost} />
         ))}
       </div>
+      {selectedPost !== null ? <PostFull post={posts[selectedPost]} deselectPost={setSelectedPost} /> : ''}
     </div>
   );
 }
