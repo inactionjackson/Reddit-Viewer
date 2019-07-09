@@ -16,7 +16,6 @@ export default function PostThumb({ post, id, selectPost, screenHeight, screenWi
     smallTitle += data.title.length > smallTitle.length ? '...' : '';
     const mainElement = imgSrc ? <img src={imgSrc} alt={data.title} /> : <div><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>;
 
-    //TODO: fix styling for selftext when image not available - needs properly centered
     const handleSelectPost = () => {
         selectPost(id);
     }
@@ -36,11 +35,26 @@ export default function PostThumb({ post, id, selectPost, screenHeight, screenWi
 }
 
 function pickCorrectImage(images) {
-    let correctImage = null;
-    if (images) {
-        // TODO: pick correct image based on screen resolution and available sizes
+    if (!images) {
+        return null;
     }
-    correctImage = images[0].source.url;
+
+    let correctImage = null;
+    const vWidth = window.screen.width;
+    const numOfColumns = vWidth/400;
+    let bestFitIndex = -1;
+    let smallestDif = -1;
+    images[0].resolutions.forEach((img, i)=>{
+        if(img.width > vWidth/numOfColumns){
+            const sizeDif = Math.abs(img.width-(vWidth/numOfColumns));
+            if( sizeDif < smallestDif || smallestDif < 0){
+                bestFitIndex = i;
+                smallestDif = sizeDif;
+            }
+        }
+    });
+    console.log(bestFitIndex);
+    correctImage = bestFitIndex !== -1 ? images[0].resolutions[bestFitIndex].url : images[0].source.url;
     return correctImage.replace(/amp;/g, '');
 
 }

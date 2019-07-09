@@ -10,7 +10,7 @@ export default function NavBar({currentSub, setSub}) {
         }
     }
     return (
-        <div>
+        <div className='navbar'>
             <input type='text' placeholder={currentSub} onChange={(e)=>searchTerm=e.target.value} onKeyUp={(e)=>onKeyUp(e)} />
             <button type="submit" onClick={()=>setSub(searchTerm)} >View</button>
         </div>

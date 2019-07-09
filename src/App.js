@@ -25,7 +25,6 @@ function App(){
     getSubPosts();
   },[selectedSub])
 
-  //TODO: make # of grid columns adjust with screen size
   return (
     <div className="app">
       <NavBar initialSub={selectedSub} setSub={setSub} />
@@ -39,7 +38,7 @@ function App(){
     </div>
   );
 }
-
+//TODO: add pagination
 function getUrlParameter(name) {
   name = name.replace(/[/, '\\[').replace(/[\]]/, '\\]');
   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
