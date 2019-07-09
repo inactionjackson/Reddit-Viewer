@@ -24,7 +24,6 @@ function App(){
     }
     getSubPosts();
   },[selectedSub])
-
   return (
     <div className="app">
       <NavBar initialSub={selectedSub} setSub={setSub} />

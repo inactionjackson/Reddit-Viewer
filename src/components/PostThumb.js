@@ -40,20 +40,19 @@ function pickCorrectImage(images) {
     }
 
     let correctImage = null;
-    const vWidth = window.screen.width;
-    const numOfColumns = vWidth/400;
+    const vHeightMin = window.screen.height/2;
+    const vWidthMin = 400;
     let bestFitIndex = -1;
     let smallestDif = -1;
     images[0].resolutions.forEach((img, i)=>{
-        if(img.width > vWidth/numOfColumns){
-            const sizeDif = Math.abs(img.width-(vWidth/numOfColumns));
+        if(img.width >=  vWidthMin && img.height >= vHeightMin){
+            const sizeDif = Math.abs(img.width-vWidthMin);
             if( sizeDif < smallestDif || smallestDif < 0){
                 bestFitIndex = i;
                 smallestDif = sizeDif;
             }
         }
     });
-    console.log(bestFitIndex);
     correctImage = bestFitIndex !== -1 ? images[0].resolutions[bestFitIndex].url : images[0].source.url;
     return correctImage.replace(/amp;/g, '');
 
