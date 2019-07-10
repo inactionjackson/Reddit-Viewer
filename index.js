@@ -30,6 +30,17 @@ app.get('/api/redditviewer/:sub',(req,res)=>{
         })
     
 })
+app.get('/api/redditviewer/:sub/:after',(req,res)=>{
+    axios.get("http://reddit.com/r/"+req.params.sub+".json?after="+req.params.after)
+        .then(response =>{
+            try{
+            res.json(parseRedditPosts(response.data));
+            }catch(e){
+                console.error(e);
+            }
+        })
+    
+})
 
 app.listen(PORT, ()=>{
     console.log(`Server listening on port ${PORT}`);
