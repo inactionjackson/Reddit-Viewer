@@ -1,8 +1,7 @@
 import React from 'react';
 
 
-export default function PostThumb({ post, id, selectPost, screenHeight, screenWidth }) {
-    //TODO: implement screen sizes in image selection
+export default function PostThumb({ post, id, selectPost, screenHeight }) {
 
     const data = post.data;
     let imgSrc = null
@@ -10,11 +9,10 @@ export default function PostThumb({ post, id, selectPost, screenHeight, screenWi
         imgSrc = pickCorrectImage(data.preview.images);
     }
     const bUseTitleForSelftext = data.selftext === '';
-    let mainElementClassName = 'postThumb_mainElement';
 
     let smallTitle = data.title.substring(0, 40);
     smallTitle += data.title.length > smallTitle.length ? '...' : '';
-    const mainElement = imgSrc ? <img src={imgSrc} alt={data.title} /> : <div><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>;
+    const mainElement = imgSrc ? <img src={imgSrc} alt={data.title}  /> : <div className='postThumb_text'><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>;
 
     const handleSelectPost = () => {
         selectPost(id);
@@ -22,13 +20,14 @@ export default function PostThumb({ post, id, selectPost, screenHeight, screenWi
 
 
     return (
-        <div className={`postThumb ${bUseTitleForSelftext && !imgSrc ? "titleOnly" : ""}`}>
-            <div className={mainElementClassName} onClick={() => handleSelectPost()}>
+        <div className='postThumb'>
+            <div className='postThumb_main' onClick={() => handleSelectPost()}>
                 {mainElement}
+                <div className='postThumb_smallTitle'>
+                    <p>{smallTitle + ' : '}<a href={"http://reddit.com/u/" + data.author} >u/{data.author}</a></p>
+                </div>
             </div>
-            <div className='postThumb_smallTitle'>
-                <p>{smallTitle + ' : '}<a href={"http://reddit.com/u/" + data.author} >u/{data.author}</a></p>
-            </div>
+            
 
         </div>
     )

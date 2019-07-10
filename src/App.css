@@ -2,13 +2,7 @@
   padding:0;
   margin:0;
 }
-html, body{
-  height:100%;
-}
-p{
-  padding:0;
-  margin:0;
-}
+
 a{
   text-decoration: none;
   color: rgb(170,0,170)
@@ -27,39 +21,29 @@ a{
   padding:10px;
 }
 
-.postThumb{
-  position: relative;
-}
-.postThumb_mainElement{
-  height: 100%;
-  width: 100%;
-}
 
-.postThumb_mainElement img{
+.postThumb_main img{
+  vertical-align:bottom;
   max-height: 50vh;
   width: 100%;
   object-fit: cover;
-
 }
 
-.postThumb_mainElement div{
+.postThumb_main  .postThumb_text{
   min-height: 30vh;
   font-size: calc(16px + (32 - 16) * ((100vw - 300px) / (2048 - 300)));
   background-color:rgb(214, 211, 211);
 }
-.postThumb_mainElement div p{
+.postThumb_main .postThumb_text p{
   padding:20px 3%;
   word-wrap: break-word;
 }
 .postThumb_smallTitle{
-  position: absolute;
-  bottom: 0;
-  left:0;
   font-size: calc(8px + (16 - 8) * ((100vw - 300px) / (2048 - 300)));
   width: 100%;
   background-color: rgba(177,177,177,.7);
   padding:0px;
-  margin:0;
+  margin:0px;
   font-weight: bold;
   color: rgb(30, 30, 30);
 }
