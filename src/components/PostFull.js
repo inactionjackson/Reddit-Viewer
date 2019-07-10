@@ -1,20 +1,25 @@
 import React from 'react'
 
-export default function PostFull({post,deselectPost}) {
+
+export default function PostFull({data,deselectPost}) {
     let imgSrc = ''
-    if(post.data.preview){
-        imgSrc = post.data.preview.images[0].source.url.replace(/amp;/g,'');
+    if(data.preview){
+        if(data.preview.images[0].variants.gif){
+            imgSrc = data.preview.images[0].variants.gif.source.url.replace(/amp;/g,'');
+        }else{
+            imgSrc = data.preview.images[0].source.url.replace(/amp;/g,'');
+        }
     }
-    const title = post.data.title;
+    const title = data.title;
     let selfText = null;
-    if(post.data.selftext){
-        selfText = post.data.selftext.split("\n");
+    if(data.selftext){
+        selfText = data.selftext.split("\n");
     }
     return (
         
         <div className='postFull_backing'  onClick={()=>deselectPost(null)}>
             <div className='postFull'>
-                {imgSrc?<img src={imgSrc} alt={title}/>:<div>{selfText ? selfText.map((p,key)=><p key={key}>{p}</p>) : title}</div>}
+                {imgSrc?<img src={imgSrc} alt={title} />:<div>{selfText ? selfText.map((p,key)=><p key={key}>{p}</p>) : title}</div>}
             </div>
         </div>
     )

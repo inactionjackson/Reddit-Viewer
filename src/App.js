@@ -22,7 +22,7 @@ function App(){
     if(window.innerHeight + document.documentElement.scrollTop < postHolder[0].offsetHeight){
       return;
     }
-    window.removeEventListener('scroll',handleScroll);
+    window.removeEventListener('scroll',handleScroll); // remove listener so event doesn't fire multiple times while next batch is being loaded
     setbScrolledToEnd(true);
   }
 
@@ -60,17 +60,17 @@ function App(){
     getMorePosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[bScrolledToEnd]);
-
+  
   return (
     <div className="app">
-      <NavBar initialSub={selectedSub} setSub={setSub} />
+      <NavBar currentSub={selectedSub} setSub={setSub} />
       <div className="postsHolder">
         
         {posts.map((post, index) =>(
-          <PostThumb key={index} post={post} id={index} selectPost={setSelectedPost} />
+          <PostThumb key={index} data={post.data} id={index} selectPost={setSelectedPost} />
         ))}
       </div>
-      {selectedPost !== null ? <PostFull post={posts[selectedPost]} deselectPost={setSelectedPost} /> : ''}
+      {selectedPost !== null ? <PostFull data={posts[selectedPost].data} deselectPost={setSelectedPost} /> : ''}
     </div>
   );
 }

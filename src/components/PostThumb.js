@@ -1,18 +1,18 @@
 import React from 'react';
+import playSymbol from '../playSymbol.png';
 
 
-export default function PostThumb({ post, id, selectPost, screenHeight }) {
+export default function PostThumb({ data, id, selectPost, screenHeight }) {
 
-    const data = post.data;
     let imgSrc = null
     if (data.preview) {
         imgSrc = pickCorrectImage(data.preview.images);
     }
+    let bIsGif = data.preview.images[0].variants.gif ? true : false;
     const bUseTitleForSelftext = data.selftext === '';
 
     let smallTitle = data.title.substring(0, 40);
     smallTitle += data.title.length > smallTitle.length ? '...' : '';
-    const mainElement = imgSrc ? <img src={imgSrc} alt={data.title}  /> : <div className='postThumb_text'><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>;
 
     const handleSelectPost = () => {
         selectPost(id);
@@ -22,7 +22,8 @@ export default function PostThumb({ post, id, selectPost, screenHeight }) {
     return (
         <div className='postThumb'>
             <div className='postThumb_main' onClick={() => handleSelectPost()}>
-                {mainElement}
+                {bIsGif ? <img src={playSymbol} alt='play gif' className='playSymbol' /> : ''}
+                {imgSrc ? <img src={imgSrc} alt={data.title}  /> : <div className='postThumb_text'><p>{bUseTitleForSelftext ? smallTitle : data.selftext.substring(0, 80) + '...'}</p> </div>}
                 <div className='postThumb_smallTitle'>
                     <p>{smallTitle + ' : '}<a href={"http://reddit.com/u/" + data.author} >u/{data.author}</a></p>
                 </div>
