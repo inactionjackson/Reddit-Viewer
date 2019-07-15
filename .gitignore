@@ -1,8 +1,8 @@
 # dependencies
 /node_modules
 
-# production
-/build
+# sub repos
+/public/reddit-viewer
 
 # misc
 .DS_Store
