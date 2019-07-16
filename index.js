@@ -18,8 +18,6 @@ const parseRedditPosts = (data) =>{
     
 }
 
-app.use(express.static('public'));
-
 app.get('/api/redditviewer/:sub',(req,res)=>{
     axios.get("http://reddit.com/r/"+req.params.sub+".json")
         .then(response =>{
