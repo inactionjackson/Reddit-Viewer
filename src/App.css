@@ -1,126 +1,140 @@
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
 }
-body{
-  background-color:rgb(184, 184, 184);
+body {
+  background-color: rgb(255, 255, 255);
 }
 
-a{
+a {
   text-decoration: none;
-  color: rgb(170,0,170)
+  color: rgb(170, 0, 170);
 }
 
-.navbar{
+.navbar {
   width: 100%;
   height: 30px;
   text-align: center;
-  padding:7px 0 0 0;
-  background-color:rgb(128, 128, 211);
+  padding: 7px 0 0 0;
+  background-color: rgb(128, 128, 211);
   border-bottom: 1px solid rgb(136, 76, 27);
 }
-.navbar *{
+.navbar * {
   display: inline;
   padding: 3px;
   font-weight: bold;
 }
-.navbar button{
-  padding:3px 8px;
+.navbar > button {
+  padding: 3px 8px;
 }
-.navbar button:hover{
+.navbar > button:hover {
   cursor: pointer;
 }
 
-.postsHolder{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px,1fr));
+.postsHolder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 1rem;
-  padding:10px;
+  padding: 10px;
 }
 
-.postThumb_main{
+.postThumb_main {
   position: relative;
-  border: 1px solid rgb(136, 76, 27)
+  /* border: 1px solid rgb(136, 76, 27); */
+  background-color: rgb(223, 223, 223);
+  -webkit-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 
-.postThumb_main img{
-  vertical-align:bottom;
-  max-height: 50vh;
+.postThumb_main > img {
+  vertical-align: bottom;
+  max-height: 40vh;
   width: 100%;
   object-fit: cover;
+  object-position: 50% 25%;
 }
-.postThumb_main .playSymbol{
+.postThumb_main > .gif {
+  filter: grayscale(100%);
+}
+.postThumb_main > .playSymbol {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   height: inherit;
-  object-fit: contain;
-  background-color:rgb(228, 228, 228);
-  opacity: .5;
+  object-fit: none;
 }
 
-.postThumb_main  .postThumb_text{
+.postThumb_main > .postThumb_text {
   min-height: 30vh;
   font-size: calc(16px + (32 - 16) * ((100vw - 300px) / (2048 - 300)));
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
-.postThumb_main .postThumb_text p{
-  padding:20px 3%;
+.postThumb_main > .postThumb_text p {
+  padding: 20px 3%;
   word-wrap: break-word;
 }
-.postThumb_smallTitle{
+.postThumb_smallTitle {
   font-size: calc(8px + (16 - 8) * ((100vw - 300px) / (2048 - 300)));
   width: 100%;
   background-color: rgb(128, 128, 211);
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
   font-weight: bold;
   color: rgb(30, 30, 30);
+  border-radius: 0px 0px 10px 10px;
+  -moz-border-radius: 0px 0px 10px 10px;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  border: 0px solid #000000;
 }
-.postThumb_smallTitle p{
-  padding:3px;
+.postThumb_smallTitle > p {
+  padding: 3px 10px;
 }
-@media(max-width:834px){
-  .postThumb_mainElement img{
+@media (max-width: 834px) {
+  .postThumb_mainElement > img {
     max-height: 90vh;
   }
-  .postThumb_smallTitle{
+  .postThumb_smallTitle {
     font-size: calc(8px + (28 - 8) * ((100vw - 300px) / (2048 - 300)));
   }
 }
-.postFull{
+.postFull {
   position: fixed;
   width: 90%;
   height: 90%;
-  left:50%;
-  top:50%;
+  left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
-  z-index:100;
+  z-index: 100;
 }
 
-.postFull img{
+.postFull > img {
   object-fit: contain;
   height: 100%;
   width: 100%;
 }
 
-.postFull div{
+.postFull > div {
   height: 100%;
   width: 100%;
-  overflow:scroll;
+  overflow: scroll;
   font-size: calc(16px + (32 - 16) * ((100vw - 300px) / (2048 - 300)));
-  background-color:white;
+  background-color: white;
 }
-.postFull div p{
-  padding:10px 3% 0 3%;
+.postFull > div > p {
+  padding: 10px 3% 0 3%;
   text-indent: 12pt;
 }
-.postFull_backing{
+.postFull_backing {
   position: fixed;
   z-index: 10;
   width: 100%;
   height: 100%;
-  top:0px;
-  left:0px;
-  background-color:rgba(34, 33, 33, 0.9);
+  top: 0px;
+  left: 0px;
+  background-color: rgba(34, 33, 33, 0.9);
 }

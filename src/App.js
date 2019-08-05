@@ -7,11 +7,11 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const initialSub = getUrlParameter("sub") || "aww";
+  const initialSub = getSubFromHash() || "aww";
   const [selectedSub, setSub] = useState(initialSub);
   const [selectedPost, setSelectedPost] = useState(null);
   const [bScrolledToEnd, setbScrolledToEnd] = useState(false);
-  const SERVER_PORT = process.env.SERVER_PORT || 5000;
+  const SERVER_PORT = process.env.REACT_SERVER_PORT || 5000;
 
   const handleScroll = () => {
     /**checks if infinite scroll loading is needed */
@@ -29,12 +29,18 @@ function App() {
   useEffect(() => {
     /**adds scroll event listener for infinite scroll, should only fire at initial load */
     window.addEventListener("scroll", handleScroll);
+    window.onhashchange = () => {
+      setSub(getSubFromHash());
+    };
     return () => window.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     /**handles initial load anytime selected sub changes */
+    const searchParams = new URLSearchParams();
+    searchParams.set("sub", selectedSub);
+    window.location.hash = searchParams.toString();
     const getSubPosts = () => {
       const URL = `http://localhost:${SERVER_PORT}/api/redditviewer/${selectedSub}`;
       axios
@@ -46,6 +52,7 @@ function App() {
         .catch(e => console.log(e));
     };
     getSubPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSub]);
 
   useEffect(() => {
@@ -55,7 +62,7 @@ function App() {
     }
     setbScrolledToEnd(false);
     const getMorePosts = () => {
-      const URL = `http://localhost:5000/api/redditviewer/${selectedSub}/${
+      const URL = `http://localhost:${SERVER_PORT}/api/redditviewer/${selectedSub}/${
         posts[posts.length - 1].data.name
       }`;
       axios
@@ -95,13 +102,15 @@ function App() {
     </div>
   );
 }
-function getUrlParameter(name) {
-  name = name.replace(/[/, '\\[').replace(/[\]]/, "\\]");
-  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-  var results = regex.exec(window.location.search);
-  return results === null
-    ? ""
-    : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+
+const getSubFromHash = () => {
+  let sub = null;
+  const hash = window.location.hash.split("=");
+  if (hash[0] === "#sub") {
+    sub = hash[1];
+  }
+  console.log(sub);
+  return sub;
+};
 
 export default App;
